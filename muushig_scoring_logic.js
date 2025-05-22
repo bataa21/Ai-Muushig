@@ -1,0 +1,1 @@
+// Scoring logic in Mongolian UI
