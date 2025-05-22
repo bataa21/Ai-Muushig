@@ -2,23 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muushig Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muushig 2-Player</title>
   <link rel="stylesheet" href="muushig.css" />
 </head>
 <body>
-  <h1>Muushig 2-Player Game</h1>
-
-  <div id="play-area">
-    <div id="bot-area">Bot: <span id="bot-score">15</span></div>
-    <div id="deck-area">
-      <img src="cards/back.png" id="deck" />
-      <img src="cards/8H.png" id="trump-card" />
+  <div id="table">
+    <!-- Top Player (Bot) -->
+    <div class="player" id="player-top">
+      Bot (<span id="bot-score">0</span>)
+      <div class="hand bot-hand"></div>
     </div>
-    <div id="player-area">Player: <span id="player-score">15</span></div>
-    <button onclick="startGame()">ШИНЭ</button>
+
+    <!-- Center Area -->
+    <div id="center-area">
+      <div id="deck">🂠</div>
+      <div id="trump-card">?</div>
+      <div id="flying-card">🂠</div>
+      <div id="round-play">
+        <div id="played-by-player"></div>
+        <div id="played-by-bot"></div>
+      </div>
+    </div>
+
+    <!-- Bottom Player (You) -->
+    <div class="player" id="player-bottom">
+      You (<span id="player-score">0</span>)
+      <div class="hand player-hand"></div>
+    </div>
   </div>
 
-  <script src="muushig_game.js"></script>
+  <audio id="shuffleSound" src="shuffle.wav" preload="auto"></audio>
+  <script src="muushig.js"></script>
 </body>
 </html>
