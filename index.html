@@ -1,1 +1,24 @@
-<!-- Full-featured version will go here -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muushig Game</title>
+  <link rel="stylesheet" href="muushig.css" />
+</head>
+<body>
+  <h1>Muushig 2-Player Game</h1>
+
+  <div id="play-area">
+    <div id="bot-area">Bot: <span id="bot-score">15</span></div>
+    <div id="deck-area">
+      <img src="cards/back.png" id="deck" />
+      <img src="cards/8H.png" id="trump-card" />
+    </div>
+    <div id="player-area">Player: <span id="player-score">15</span></div>
+    <button onclick="startGame()">ШИНЭ</button>
+  </div>
+
+  <script src="muushig_game.js"></script>
+</body>
+</html>
