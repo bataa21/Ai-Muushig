@@ -43,3 +43,8 @@ button {
   margin: 10px 0;
   font-weight: bold;
 }
+.selected {
+  border: 3px solid yellow;
+  box-shadow: 0 0 10px yellow;
+}
+
