@@ -72,46 +72,23 @@ function startGame() {
   displayPlayerHand();
   displayBotHand();
   displayTrumpCard();
-  console.log('New game started.');
+  currentPhase = 'swap';
+  console.log('New game started. Phase:', currentPhase);
 }
 
 function performSwap() {
+  if (currentPhase !== 'swap') return;
   alert("Swap logic will go here.");
+  currentPhase = 'play';
+  console.log("Swapping done. Moving to phase:", currentPhase);
 }
 
 function startPlay() {
-  alert("Click a card to play it.");
-  isPlayerTurn = true;
+  if (currentPhase !== 'play') return;
+  alert("Play logic will go here.");
+  // Placeholder for actual play round
+  console.log("Play phase active.");
 }
-
-function playerPlaysCard(index) {
-  if (!isPlayerTurn) return;
-
-  const playerCard = playerHand.splice(index, 1)[0];
-  const botCard = botHand.splice(Math.floor(Math.random() * botHand.length), 1)[0];
-
-  alert(`You played ${playerCard}, Bot played ${botCard}`);
-
-  // Compare simple ranks only (e.g., "9H" vs "7S")
-  const playerRank = ranks.indexOf(playerCard[0]);
-  const botRank = ranks.indexOf(botCard[0]);
-
-  if (playerRank > botRank) {
-    botScore--;
-    alert("You win the trick!");
-  } else {
-    playerScore--;
-    alert("Bot wins the trick.");
-  }
-
-  updateScores();
-  displayPlayerHand();
-  displayBotHand();
-  checkForGameEnd();
-
-  isPlayerTurn = false;
-}
-
 
 function checkForGameEnd() {
   if (playerScore <= 0) {
