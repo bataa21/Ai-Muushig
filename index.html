@@ -1,33 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Muushig 2-Player Game</title>
-  <link rel="stylesheet" href="muushig.css" />
+  <style>
+    body {
+      background: green;
+      color: yellow;
+      text-align: center;
+      font-family: sans-serif;
+    }
+    .card {
+      width: 70px;
+      margin: 5px;
+    }
+    #bot-hand, #player-hand {
+      display: flex;
+      justify-content: center;
+      margin: 10px;
+    }
+    #controls button {
+      margin: 5px;
+      padding: 5px 10px;
+    }
+  </style>
 </head>
 <body>
   <h1>Muushig 2-Player Game</h1>
 
-  <div id="bot-area">Бот: <span id="bot-score">15</span></div>
-  <div id="player-area">Тоглогч: <span id="player-score">15</span></div>
-
-  <div id="button-area">
-    <button onclick="startPlay()">ТОГЛО</button>
-    <button onclick="performSwap()">СОЛИХ</button>
-    <button onclick="startGame()">ШИНЭ</button>
+  <div>
+    Бот: <span id="bot-score">15</span> |
+    Тоглогч: <span id="player-score">15</span>
   </div>
 
-  <div id="center-area">
-    <img id="deck" src="cards/back.png" alt="Deck" />
-    <img id="trump" src="cards/8H.png" alt="Trump" />
+  <div id="controls">
+    <button id="play-button">ТОГЛО</button>
+    <button id="swap-button">СОЛИХ</button>
+    <button id="start-button">ШИНЭ</button>
   </div>
 
-  <div id="hands-container">
-    <div id="bot-hand" class="hand"></div>
-    <div id="player-hand" class="hand"></div>
+  <div>
+    <img id="deck" src="cards/back.png" alt="Deck" class="card">
+    <img id="trump" src="cards/8H.png" alt="Trump" class="card">
   </div>
 
+  <div id="bot-hand"></div>
+  <div id="player-hand"></div>
+
+  <script>
+    // Simulate globals.js
+    let suits = ['C', 'D', 'H', 'S'];
+    let ranks = ['7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    let deck = [], playerHand = [], botHand = [], trumpCard = '';
+    let playerScore = 15, botScore = 15;
+    let isPlayerTurn = true;
+  </script>
   <script src="muushig_game.js"></script>
 </body>
 </html>
