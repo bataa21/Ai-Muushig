@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Muushig 2-Player Game</title>
   <link rel="stylesheet" href="muushig.css" />
 </head>
@@ -10,7 +10,8 @@
   <h1>Muushig 2-Player Game</h1>
 
   <div id="scoreboard">
-    Бот: <span id="bot-score">15</span> | Тоглогч: <span id="player-score">15</span>
+    Бот: <span id="bot-score">15</span> |
+    Тоглогч: <span id="player-score">15</span>
   </div>
 
   <div class="controls">
@@ -19,15 +20,16 @@
     <button id="start-button">ШИНЭ</button>
   </div>
 
-  <div class="hand-row" id="bot-hand"></div>
+  <div id="bot-hand" class="hand-row"></div>
 
   <div class="hand-row">
-    <img id="deck" src="cards/back.png" class="card" alt="Deck" />
-    <img id="trump" src="cards/8H.png" class="card" alt="Trump" />
+    <img id="deck" src="cards/back.png" alt="Deck" class="card" />
+    <img id="trump" src="cards/8H.png" alt="Trump" class="card" />
   </div>
 
- <script src="globals.js"></script>
-<script src="muushig_game.js"></script>
+  <div id="player-hand" class="hand-row"></div>
 
+  <script src="globals.js"></script>
+  <script src="muushig_game.js"></script>
 </body>
 </html>
