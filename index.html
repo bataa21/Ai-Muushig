@@ -7,28 +7,27 @@
   <link rel="stylesheet" href="muushig.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Muushig 2-Player Game</h1>
-    <div>
-      Бот: <span id="bot-score">15</span> |
-      Тоглогч: <span id="player-score">15</span>
-    </div>
-    <div>
-      <button id="play-button">ТОГЛО</button>
-      <button id="swap-button">СОЛИХ</button>
-      <button id="start-button">ШИНЭ</button>
-    </div>
+  <h1>Muushig 2-Player Game</h1>
 
-    <div id="center-area">
-      <img id="deck" src="cards/back.png" class="card" />
-      <img id="trump" src="cards/8H.png" class="card" />
-    </div>
-
-    <div id="bot-hand"></div>
-    <div id="player-hand"></div>
+  <div id="scoreboard">
+    Бот: <span id="bot-score">15</span> | Тоглогч: <span id="player-score">15</span>
   </div>
-<script src="globals.js"></script>
-<script src="muushig_game.js"></script>
 
+  <div class="controls">
+    <button id="play-button">ТОГЛО</button>
+    <button id="swap-button">СОЛИХ</button>
+    <button id="start-button">ШИНЭ</button>
+  </div>
+
+  <div class="hand-row" id="bot-hand"></div>
+
+  <div class="hand-row">
+    <img id="deck" src="cards/back.png" class="card" alt="Deck" />
+    <img id="trump" src="cards/8H.png" class="card" alt="Trump" />
+  </div>
+
+  <div class="hand-row" id="player-hand"></div>
+
+  <script src="muushig_game.js"></script>
 </body>
 </html>

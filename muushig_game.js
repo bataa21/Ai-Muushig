@@ -80,8 +80,38 @@ function performSwap() {
 }
 
 function startPlay() {
-  alert("Play logic will go here.");
+  alert("Click a card to play it.");
+  isPlayerTurn = true;
 }
+
+function playerPlaysCard(index) {
+  if (!isPlayerTurn) return;
+
+  const playerCard = playerHand.splice(index, 1)[0];
+  const botCard = botHand.splice(Math.floor(Math.random() * botHand.length), 1)[0];
+
+  alert(`You played ${playerCard}, Bot played ${botCard}`);
+
+  // Compare simple ranks only (e.g., "9H" vs "7S")
+  const playerRank = ranks.indexOf(playerCard[0]);
+  const botRank = ranks.indexOf(botCard[0]);
+
+  if (playerRank > botRank) {
+    botScore--;
+    alert("You win the trick!");
+  } else {
+    playerScore--;
+    alert("Bot wins the trick.");
+  }
+
+  updateScores();
+  displayPlayerHand();
+  displayBotHand();
+  checkForGameEnd();
+
+  isPlayerTurn = false;
+}
+
 
 function checkForGameEnd() {
   if (playerScore <= 0) {

@@ -1,51 +1,45 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
   background-color: green;
-  color: yellow;
+  font-family: Arial, sans-serif;
   text-align: center;
+  color: yellow;
+  margin: 0;
+  padding: 0;
 }
 
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 10px;
+h1 {
+  font-size: 2em;
+  margin-top: 20px;
+}
+
+.controls {
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 5px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.hand-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
 }
 
 .card {
   width: 60px;
-  margin: 4px;
-  transition: transform 0.2s;
+  height: auto;
 }
 
-.card:hover {
-  transform: scale(1.05);
-}
-
-#bot-hand, #player-hand {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-#center-area {
+#scoreboard {
   margin: 10px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-@media (max-width: 600px) {
-  .card {
-    width: 45px;
-  }
-
-  h1 {
-    font-size: 1.4em;
-  }
-
-  #center-area {
-    flex-direction: column;
-  }
+  font-weight: bold;
 }
