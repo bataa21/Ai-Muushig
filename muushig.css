@@ -16,3 +16,7 @@ body {
 img {
   height: 100px;
 }
+.card {
+  height: 100px;
+  margin: 5px;
+}

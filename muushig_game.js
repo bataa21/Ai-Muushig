@@ -1,10 +1,20 @@
-const suits = ["C", "D", "H", "S"];
-const ranks = ["7", "8", "9", "10", "J", "Q", "K", "A"];
+// ==============================
+// Muushig 2-Player Game Logic
+// ==============================
+
+// --- Global Variables ---
+const suits = ['C', 'D', 'H', 'S']; // Clubs, Diamonds, Hearts, Spades
+const ranks = ['7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 let deck = [];
 let playerHand = [];
 let botHand = [];
 let trumpCard = null;
+let playerScore = 15;
+let botScore = 15;
 
+// --- Utility Functions ---
+
+// Create a standard 32-card deck
 function createDeck() {
   deck = [];
   for (const suit of suits) {
@@ -14,6 +24,7 @@ function createDeck() {
   }
 }
 
+// Shuffle the deck using Fisher-Yates algorithm
 function shuffleDeck() {
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -21,54 +32,89 @@ function shuffleDeck() {
   }
 }
 
+// Deal 5 cards to each player and set the trump card
 function dealCards() {
-  playerHand = [];
-  botHand = [];
-  for (let i = 0; i < 5; i++) {
-    playerHand.push(deck.pop());
-    botHand.push(deck.pop());
-  }
+  playerHand = deck.splice(0, 5);
+  botHand = deck.splice(0, 5);
   trumpCard = deck.pop();
 }
 
-function displayHands() {
-  const playerDiv = document.getElementById("player-hand");
-  const botDiv = document.getElementById("bot-hand");
-  playerDiv.innerHTML = "";
-  botDiv.innerHTML = "";
+// --- UI Update Functions ---
 
+// Update the scores displayed on the page
+function updateScores() {
+  document.getElementById('player-score').innerText = playerScore;
+  document.getElementById('bot-score').innerText = botScore;
+}
+
+// Display the player's hand
+function displayPlayerHand() {
+  const playerHandDiv = document.getElementById('player-hand');
+  playerHandDiv.innerHTML = '';
   for (const card of playerHand) {
-    const img = document.createElement("img");
+    const img = document.createElement('img');
     img.src = `cards/${card}.png`;
     img.alt = card;
-    playerDiv.appendChild(img);
-  }
-
-  for (const card of botHand) {
-    const img = document.createElement("img");
-    img.src = `cards/back.png`;
-    img.alt = "Hidden";
-    botDiv.appendChild(img);
+    img.classList.add('card');
+    playerHandDiv.appendChild(img);
   }
 }
 
-function displayTrump() {
-  document.getElementById("trump").src = `cards/${trumpCard}.png`;
+// Display the bot's hand (cards face down)
+function displayBotHand() {
+  const botHandDiv = document.getElementById('bot-hand');
+  botHandDiv.innerHTML = '';
+  for (let i = 0; i < botHand.length; i++) {
+    const img = document.createElement('img');
+    img.src = 'cards/back.png';
+    img.alt = 'Card Back';
+    img.classList.add('card');
+    botHandDiv.appendChild(img);
+  }
 }
 
+// Display the trump card
+function displayTrumpCard() {
+  const trumpImg = document.getElementById('trump');
+  trumpImg.src = `cards/${trumpCard}.png`;
+  trumpImg.alt = trumpCard;
+}
+
+// --- Game Control Functions ---
+
+// Initialize and start a new game
 function startGame() {
   createDeck();
   shuffleDeck();
   dealCards();
-  displayHands();
-  displayTrump();
-  console.log("Game started");
+  updateScores();
+  displayPlayerHand();
+  displayBotHand();
+  displayTrumpCard();
+  console.log('New game started.');
 }
 
-function performSwap() {
-  alert("You clicked СОЛИХ");
-}
-
+// Handle the play action
 function startPlay() {
-  alert("You clicked ТОГЛО");
+  alert('Play action triggered.');
+  // Implement play logic here
 }
+
+// Handle the swap action
+function performSwap() {
+  alert('Swap action triggered.');
+  // Implement swap logic here
+}
+
+// --- Event Listeners ---
+
+// Ensure the DOM is fully loaded before attaching event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  // Attach event listeners to buttons
+  document.getElementById('start-button').addEventListener('click', startGame);
+  document.getElementById('play-button').addEventListener('click', startPlay);
+  document.getElementById('swap-button').addEventListener('click', performSwap);
+
+  // Automatically start a new game on page load
+  startGame();
+});
