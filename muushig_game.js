@@ -113,10 +113,17 @@ function performSwap() {
   displayBotHand();
   displayTrumpCard();
 
+  const trumpImg = document.getElementById('trump');
+  if (trumpImg && trumpCard === null) {
+    trumpImg.src = ''; // visually hide
+    trumpImg.alt = '';
+  }
+
   currentPhase = 'play';
   updatePhaseDisplay();
   console.log("Swapping done. Moving to phase:", currentPhase);
 }
+
 
 function startPlay() {
   if (currentPhase !== 'play') return;
