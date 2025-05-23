@@ -1,5 +1,9 @@
-const suits = ['C', 'D', 'H', 'S']; // Clubs, Diamonds, Hearts, Spades
-const ranks = ['7', '8', '9', '10', 'J', 'Q', 'K', 'A']; // Muushig 32-card deck
+// ========================
+// Muushig Global Variables
+// ========================
+
+const suits = ['H', 'D', 'S', 'C']; // Hearts, Diamonds, Spades, Clubs
+const ranks = ['7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
 let deck = [];
 let playerHand = [];
