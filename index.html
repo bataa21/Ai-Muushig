@@ -1,4 +1,3 @@
-<!-- ✅ index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,29 +9,25 @@
 <body>
   <h1>Muushig 2-Player Game</h1>
 
-  <div id="bot-area">
-    <div>Бот: <span id="bot-score">15</span></div>
-    <div id="bot-hand" class="hand"></div>
-  </div>
+  <div id="bot-area">Бот: <span id="bot-score">15</span></div>
+  <div id="player-area">Тоглогч: <span id="player-score">15</span></div>
 
-  <div id="center-area">
-    <img id="deck" src="cards/back.png" />
-    <img id="trump" src="cards/8H.png" />
-  </div>
-
-  <div id="player-area">
-    <div>Тоглогч: <span id="player-score">15</span></div>
-    <div id="player-hand" class="hand"></div>
-  </div>
-
-  <div class="button-row">
+  <div id="button-area">
     <button onclick="startPlay()">ТОГЛО</button>
     <button onclick="performSwap()">СОЛИХ</button>
     <button onclick="startGame()">ШИНЭ</button>
   </div>
 
+  <div id="center-area">
+    <img id="deck" src="cards/back.png" alt="Deck" />
+    <img id="trump" src="cards/8H.png" alt="Trump" />
+  </div>
+
+  <div id="hands-container">
+    <div id="bot-hand" class="hand"></div>
+    <div id="player-hand" class="hand"></div>
+  </div>
+
   <script src="muushig_game.js"></script>
-
-
 </body>
 </html>
