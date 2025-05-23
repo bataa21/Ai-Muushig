@@ -7,26 +7,32 @@
   <link rel="stylesheet" href="muushig.css" />
 </head>
 <body>
-  <h1>Muushig 2-Player Game</h1>
-
- <div id="scoreboard">Бот: <span id="bot-score">15</span> | Тоглогч: <span id="player-score">15</span></div>
-<div id="phase-indicator"></div>
-<div class="controls">...</div>
-<div id="play-area" class="hand-row"></div>
-
-    <button id="play-button">ТОГЛО</button>
-    <button id="swap-button">СОЛИХ</button>
-    <button id="start-button">ШИНЭ</button>
-  </div>
-
+  <div id="game-board">
   <div id="bot-hand" class="hand-row"></div>
 
-  <div class="hand-row">
-    <img id="deck" src="cards/back.png" alt="Deck" class="card" />
-    <img id="trump" src="cards/8H.png" alt="Trump" class="card" />
+  <div id="middle-area">
+    <div id="deck-area">
+      <img id="deck" class="card" src="cards/back.png" alt="Deck">
+      <img id="trump" class="card" src="" alt="Trump">
+    </div>
+
+    <div id="play-area" class="hand-row"></div>
+
+    <div class="controls">
+      <button id="start-button">ТОГЛО</button>
+      <button id="swap-button">СОЛИХ</button>
+      <button id="play-button">ШИНЭ</button>
+    </div>
+
+    <div id="scoreboard">
+      Бот: <span id="bot-score">15</span> | Тоглогч: <span id="player-score">15</span>
+    </div>
+    <div id="phase-indicator">...</div>
   </div>
 
   <div id="player-hand" class="hand-row"></div>
+</div>
+
 
   <script src="globals.js"></script>
   <script src="muushig_game.js"></script>

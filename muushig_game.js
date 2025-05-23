@@ -5,10 +5,16 @@
 // --- Global Variables (from globals.js) ---
 // suits, ranks, deck, playerHand, botHand, trumpCard, playerScore, botScore, isPlayerTurn, currentPhase
 
-let selectedCardIndex = null;
-let lastPlayerCard = null;
-let lastBotCard = null;
-let currentPhase = ''; // ← ADD THIS
+const suits = ['C', 'D', 'H', 'S']; // Clubs, Diamonds, Hearts, Spades
+const ranks = ['7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+let deck = [];
+let playerHand = [];
+let botHand = [];
+let trumpCard = null;
+let playerScore = 15;
+let botScore = 15;
+let isPlayerTurn = true;
+let currentPhase = 'swap';
 
 
 // --- Utility Functions ---
@@ -90,6 +96,7 @@ function displayTrumpCard() {
 
 function displayPlayArea() {
   const playArea = document.getElementById('play-area');
+  if (!playArea) return;
   playArea.innerHTML = '';
 
   if (lastBotCard) {

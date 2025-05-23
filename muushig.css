@@ -1,50 +1,45 @@
-body {
-  background-color: green;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  color: yellow;
-  margin: 0;
-  padding: 0;
+#game-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
 }
 
-h1 {
-  font-size: 2em;
+#bot-hand {
   margin-top: 20px;
 }
 
-.controls {
-  margin: 10px auto;
+#middle-area {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+#deck-area {
+  display: flex;
   gap: 10px;
-  flex-wrap: wrap;
-}
-
-button {
-  padding: 5px 15px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.hand-row {
-  display: flex;
+  margin-bottom: 15px;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 10px 0;
 }
 
-.card {
-  width: 60px;
-  height: auto;
+#play-area {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+  min-height: 80px;
+}
+
+#player-hand {
+  margin-bottom: 20px;
 }
 
 #scoreboard {
-  margin: 10px 0;
+  margin: 5px;
   font-weight: bold;
-}
-.selected {
-  border: 3px solid yellow;
-  box-shadow: 0 0 10px yellow;
+  color: yellow;
 }
 
+.controls button {
+  margin: 5px;
+}
