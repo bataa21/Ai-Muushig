@@ -84,7 +84,35 @@ function startGame() {
 
 function performSwap() {
   if (currentPhase !== 'swap') return;
-  alert("Swap logic will go here.");
+
+  // Player swap logic: replace 2 lowest cards
+  playerHand.sort((a, b) => ranks.indexOf(a.slice(0, -1)) - ranks.indexOf(b.slice(0, -1)));
+  for (let i = 0; i < 2 && deck.length > 0; i++) {
+    playerHand[i] = deck.pop();
+  }
+
+  // Bot swap logic: replace 2 lowest cards
+  botHand.sort((a, b) => ranks.indexOf(a.slice(0, -1)) - ranks.indexOf(b.slice(0, -1)));
+  for (let i = 0; i < 2 && deck.length > 0; i++) {
+    botHand[i] = deck.pop();
+  }
+
+  // Bot takes trump card if available
+  if (trumpCard) {
+    let weakest = 0;
+    for (let i = 1; i < botHand.length; i++) {
+      if (ranks.indexOf(botHand[i].slice(0, -1)) < ranks.indexOf(botHand[weakest].slice(0, -1))) {
+        weakest = i;
+      }
+    }
+    botHand[weakest] = trumpCard;
+    trumpCard = null;
+  }
+
+  displayPlayerHand();
+  displayBotHand();
+  displayTrumpCard();
+
   currentPhase = 'play';
   updatePhaseDisplay();
   console.log("Swapping done. Moving to phase:", currentPhase);
