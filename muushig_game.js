@@ -3,7 +3,9 @@
 // ==============================
 
 // --- Global Variables (from globals.js) ---
-// suits, ranks, deck, playerHand, botHand, trumpCard, playerScore, botScore, isPlayerTurn
+// suits, ranks, deck, playerHand, botHand, trumpCard, playerScore, botScore, isPlayerTurn, currentPhase
+
+let selectedCardIndex = null; // NEW: for styling selected card
 
 // --- Utility Functions ---
 function createDeck() {
@@ -46,7 +48,11 @@ function displayPlayerHand() {
     img.src = `cards/${card}.png?v=${Date.now()}`;
     img.alt = card;
     img.classList.add('card');
-    img.addEventListener('click', () => playerPlaysCard(i));
+    if (i === selectedCardIndex) img.classList.add('selected');
+    img.addEventListener('click', () => {
+      selectedCardIndex = i;
+      displayPlayerHand();
+    });
     playerHandDiv.appendChild(img);
   });
 }
@@ -65,8 +71,13 @@ function displayBotHand() {
 
 function displayTrumpCard() {
   const trumpImg = document.getElementById('trump');
-  trumpImg.src = `cards/${trumpCard}.png?v=${Date.now()}`;
-  trumpImg.alt = trumpCard;
+  if (trumpCard) {
+    trumpImg.src = `cards/${trumpCard}.png?v=${Date.now()}`;
+    trumpImg.alt = trumpCard;
+  } else {
+    trumpImg.src = '';
+    trumpImg.alt = '';
+  }
 }
 
 function startGame() {
@@ -113,22 +124,55 @@ function performSwap() {
   displayBotHand();
   displayTrumpCard();
 
-  const trumpImg = document.getElementById('trump');
-  if (trumpImg && trumpCard === null) {
-    trumpImg.src = ''; // visually hide
-    trumpImg.alt = '';
-  }
-
   currentPhase = 'play';
   updatePhaseDisplay();
   console.log("Swapping done. Moving to phase:", currentPhase);
 }
 
+function playerPlaysCard(index) {
+  if (currentPhase !== 'play') return;
+  const playedCard = playerHand.splice(index, 1)[0];
+  alert(`You played: ${playedCard}`);
+  displayPlayerHand();
+  botPlaysCard(playedCard);
+}
+
+function botPlaysCard(playerCard) {
+  const playerRank = playerCard.slice(0, -1);
+  const playerSuit = playerCard.slice(-1);
+  const trumpSuit = trumpCard?.slice(-1);
+
+  let options = botHand
+    .filter(c => c.slice(-1) === playerSuit && ranks.indexOf(c.slice(0, -1)) > ranks.indexOf(playerRank))
+    .sort((a, b) => ranks.indexOf(a.slice(0, -1)) - ranks.indexOf(b.slice(0, -1)));
+
+  if (options.length === 0 && trumpSuit) {
+    options = botHand
+      .filter(c => c.slice(-1) === trumpSuit)
+      .sort((a, b) => ranks.indexOf(a.slice(0, -1)) - ranks.indexOf(b.slice(0, -1)));
+  }
+
+  if (options.length === 0) {
+    options = botHand.sort((a, b) => ranks.indexOf(a.slice(0, -1)) - ranks.indexOf(b.slice(0, -1)));
+  }
+
+  const botCard = options[0];
+  botHand.splice(botHand.indexOf(botCard), 1);
+
+  alert(`Bot played: ${botCard}`);
+  displayBotHand();
+
+  const botWins = ranks.indexOf(botCard.slice(0, -1)) > ranks.indexOf(playerCard.slice(0, -1));
+  if (botWins) playerScore--;
+  else botScore--;
+
+  updateScores();
+  checkForGameEnd();
+}
 
 function startPlay() {
   if (currentPhase !== 'play') return;
-  alert("Play logic will go here.");
-  // Placeholder for actual play round
+  alert("Play phase started. Click a card to play.");
   console.log("Play phase active.");
 }
 
