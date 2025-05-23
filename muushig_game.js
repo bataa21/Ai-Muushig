@@ -2,8 +2,9 @@
 // Muushig 2-Player Game Logic
 // ==============================
 
-
-
+let selectedCardIndex = null; // for styling selected card
+let lastPlayerCard = null;
+let lastBotCard = null;
 
 // --- Utility Functions ---
 function createDeck() {
@@ -213,7 +214,6 @@ function checkForGameEnd() {
   }
 }
 
-// Auto-run game setup when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('start-button').addEventListener('click', startGame);
   document.getElementById('play-button').addEventListener('click', startPlay);
