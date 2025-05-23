@@ -33,6 +33,11 @@ function updateScores() {
   document.getElementById('bot-score').innerText = botScore;
 }
 
+function updatePhaseDisplay() {
+  const phaseEl = document.getElementById('phase-indicator');
+  if (phaseEl) phaseEl.innerText = currentPhase.toUpperCase();
+}
+
 function displayPlayerHand() {
   const playerHandDiv = document.getElementById('player-hand');
   playerHandDiv.innerHTML = '';
@@ -73,6 +78,7 @@ function startGame() {
   displayBotHand();
   displayTrumpCard();
   currentPhase = 'swap';
+  updatePhaseDisplay();
   console.log('New game started. Phase:', currentPhase);
 }
 
@@ -80,6 +86,7 @@ function performSwap() {
   if (currentPhase !== 'swap') return;
   alert("Swap logic will go here.");
   currentPhase = 'play';
+  updatePhaseDisplay();
   console.log("Swapping done. Moving to phase:", currentPhase);
 }
 
