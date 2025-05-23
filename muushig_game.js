@@ -5,7 +5,11 @@
 // --- Global Variables (from globals.js) ---
 // suits, ranks, deck, playerHand, botHand, trumpCard, playerScore, botScore, isPlayerTurn, currentPhase
 
-let selectedCardIndex = null; // NEW: for styling selected card
+let selectedCardIndex = null;
+let lastPlayerCard = null;
+let lastBotCard = null;
+let currentPhase = ''; // ← ADD THIS
+
 
 // --- Utility Functions ---
 function createDeck() {
@@ -50,8 +54,12 @@ function displayPlayerHand() {
     img.classList.add('card');
     if (i === selectedCardIndex) img.classList.add('selected');
     img.addEventListener('click', () => {
-      selectedCardIndex = i;
-      displayPlayerHand();
+      if (currentPhase === 'play') {
+        playerPlaysCard(i);
+      } else {
+        selectedCardIndex = i;
+        displayPlayerHand();
+      }
     });
     playerHandDiv.appendChild(img);
   });
@@ -80,6 +88,27 @@ function displayTrumpCard() {
   }
 }
 
+function displayPlayArea() {
+  const playArea = document.getElementById('play-area');
+  playArea.innerHTML = '';
+
+  if (lastBotCard) {
+    const botCardImg = document.createElement('img');
+    botCardImg.src = `cards/${lastBotCard}.png?v=${Date.now()}`;
+    botCardImg.alt = lastBotCard;
+    botCardImg.classList.add('card');
+    playArea.appendChild(botCardImg);
+  }
+
+  if (lastPlayerCard) {
+    const playerCardImg = document.createElement('img');
+    playerCardImg.src = `cards/${lastPlayerCard}.png?v=${Date.now()}`;
+    playerCardImg.alt = lastPlayerCard;
+    playerCardImg.classList.add('card');
+    playArea.appendChild(playerCardImg);
+  }
+}
+
 function startGame() {
   createDeck();
   shuffleDeck();
@@ -88,6 +117,9 @@ function startGame() {
   displayPlayerHand();
   displayBotHand();
   displayTrumpCard();
+  lastPlayerCard = null;
+  lastBotCard = null;
+  displayPlayArea();
   currentPhase = 'swap';
   updatePhaseDisplay();
   console.log('New game started. Phase:', currentPhase);
@@ -96,19 +128,16 @@ function startGame() {
 function performSwap() {
   if (currentPhase !== 'swap') return;
 
-  // Player swap logic: replace 2 lowest cards
   playerHand.sort((a, b) => ranks.indexOf(a.slice(0, -1)) - ranks.indexOf(b.slice(0, -1)));
   for (let i = 0; i < 2 && deck.length > 0; i++) {
     playerHand[i] = deck.pop();
   }
 
-  // Bot swap logic: replace 2 lowest cards
   botHand.sort((a, b) => ranks.indexOf(a.slice(0, -1)) - ranks.indexOf(b.slice(0, -1)));
   for (let i = 0; i < 2 && deck.length > 0; i++) {
     botHand[i] = deck.pop();
   }
 
-  // Bot takes trump card if available
   if (trumpCard) {
     let weakest = 0;
     for (let i = 1; i < botHand.length; i++) {
@@ -132,9 +161,11 @@ function performSwap() {
 function playerPlaysCard(index) {
   if (currentPhase !== 'play') return;
   const playedCard = playerHand.splice(index, 1)[0];
-  alert(`You played: ${playedCard}`);
+  lastPlayerCard = playedCard;
+  selectedCardIndex = null;
   displayPlayerHand();
-  botPlaysCard(playedCard);
+  displayPlayArea();
+  setTimeout(() => botPlaysCard(playedCard), 1000);
 }
 
 function botPlaysCard(playerCard) {
@@ -142,13 +173,11 @@ function botPlaysCard(playerCard) {
   const playerSuit = playerCard.slice(-1);
   const trumpSuit = trumpCard?.slice(-1);
 
-  let options = botHand
-    .filter(c => c.slice(-1) === playerSuit && ranks.indexOf(c.slice(0, -1)) > ranks.indexOf(playerRank))
+  let options = botHand.filter(c => c.slice(-1) === playerSuit && ranks.indexOf(c.slice(0, -1)) > ranks.indexOf(playerRank))
     .sort((a, b) => ranks.indexOf(a.slice(0, -1)) - ranks.indexOf(b.slice(0, -1)));
 
   if (options.length === 0 && trumpSuit) {
-    options = botHand
-      .filter(c => c.slice(-1) === trumpSuit)
+    options = botHand.filter(c => c.slice(-1) === trumpSuit)
       .sort((a, b) => ranks.indexOf(a.slice(0, -1)) - ranks.indexOf(b.slice(0, -1)));
   }
 
@@ -158,16 +187,21 @@ function botPlaysCard(playerCard) {
 
   const botCard = options[0];
   botHand.splice(botHand.indexOf(botCard), 1);
-
-  alert(`Bot played: ${botCard}`);
+  lastBotCard = botCard;
   displayBotHand();
+  displayPlayArea();
 
   const botWins = ranks.indexOf(botCard.slice(0, -1)) > ranks.indexOf(playerCard.slice(0, -1));
   if (botWins) playerScore--;
   else botScore--;
 
   updateScores();
-  checkForGameEnd();
+  setTimeout(() => {
+    lastPlayerCard = null;
+    lastBotCard = null;
+    displayPlayArea();
+    checkForGameEnd();
+  }, 1500);
 }
 
 function startPlay() {
