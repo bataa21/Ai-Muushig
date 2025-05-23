@@ -38,7 +38,7 @@ function displayPlayerHand() {
   playerHandDiv.innerHTML = '';
   playerHand.forEach((card, i) => {
     const img = document.createElement('img');
-    img.src = `cards/${card}.png`;
+    img.src = `cards/${card}.png?v=${Date.now()}`;
     img.alt = card;
     img.classList.add('card');
     img.addEventListener('click', () => playerPlaysCard(i));
@@ -51,7 +51,7 @@ function displayBotHand() {
   botHandDiv.innerHTML = '';
   botHand.forEach(() => {
     const img = document.createElement('img');
-    img.src = 'cards/back.png';
+    img.src = 'cards/back.png?v=' + Date.now();
     img.alt = 'Hidden';
     img.classList.add('card');
     botHandDiv.appendChild(img);
@@ -60,7 +60,7 @@ function displayBotHand() {
 
 function displayTrumpCard() {
   const trumpImg = document.getElementById('trump');
-  trumpImg.src = `cards/${trumpCard}.png`;
+  trumpImg.src = `cards/${trumpCard}.png?v=${Date.now()}`;
   trumpImg.alt = trumpCard;
 }
 
