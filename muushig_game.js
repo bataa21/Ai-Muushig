@@ -2,7 +2,7 @@
 // Muushig 2-Player Game Logic
 // ==============================
 
-let selectedCardIndex = null; // for styling selected card
+var selectedCardIndex = null;
 let lastPlayerCard = null;
 let lastBotCard = null;
 
@@ -30,8 +30,10 @@ function dealCards() {
 }
 
 function updateScores() {
-  document.getElementById('player-score').innerText = playerScore;
-  document.getElementById('bot-score').innerText = botScore;
+  const playerScoreEl = document.getElementById('player-score');
+  const botScoreEl = document.getElementById('bot-score');
+  if (playerScoreEl) playerScoreEl.innerText = playerScore;
+  if (botScoreEl) botScoreEl.innerText = botScore;
 }
 
 function updatePhaseDisplay() {
@@ -74,10 +76,10 @@ function displayBotHand() {
 
 function displayTrumpCard() {
   const trumpImg = document.getElementById('trump');
-  if (trumpCard) {
+  if (trumpCard && trumpImg) {
     trumpImg.src = `cards/${trumpCard}.png?v=${Date.now()}`;
     trumpImg.alt = trumpCard;
-  } else {
+  } else if (trumpImg) {
     trumpImg.src = '';
     trumpImg.alt = '';
   }
@@ -218,5 +220,38 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('start-button').addEventListener('click', startGame);
   document.getElementById('play-button').addEventListener('click', startPlay);
   document.getElementById('swap-button').addEventListener('click', performSwap);
+
+  // New Unified Layout and Styling
+  const board = document.getElementById('game-board');
+  if (board) {
+    board.style.display = 'flex';
+    board.style.flexDirection = 'column';
+    board.style.alignItems = 'center';
+    board.style.justifyContent = 'center';
+    board.style.minHeight = '100vh';
+    board.style.padding = '40px';
+    board.style.gap = '12px';
+    board.style.backgroundColor = '#0f7310';
+  }
+
+  // Move play area above controls
+  const playArea = document.getElementById('play-area');
+  const controlRow = document.querySelector('.controls');
+  if (playArea && controlRow) {
+    controlRow.parentNode.insertBefore(playArea, controlRow);
+  }
+
+  // Create a middle-row with deck and trump
+  const deckImg = document.getElementById('deck');
+  const trumpImg = document.getElementById('trump');
+  const centerArea = document.getElementById('center-area');
+  if (centerArea && deckImg && trumpImg) {
+    centerArea.style.display = 'flex';
+    centerArea.style.justifyContent = 'center';
+    centerArea.style.gap = '20px';
+    deckImg.style.width = '60px';
+    trumpImg.style.width = '60px';
+  }
+
   startGame();
 });
